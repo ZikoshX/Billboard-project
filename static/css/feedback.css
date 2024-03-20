@@ -1,0 +1,62 @@
+.feedback-container {
+    font-family: Arial, sans-serif;
+max-width: 70%;
+margin: auto;
+background: #ffffff;
+border-radius: 20px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+padding: 20px;
+box-sizing: border-box;
+position: relative;
+display: flex;
+align-items: center;
+}
+.feedback-slide {
+display: flex;
+width: 100%;
+align-items: center; 
+
+}
+.feedback-logo {
+float: left;
+margin-top: 3%;
+flex-shrink: 0; /* Prevent logo from shrinking */
+order: 2; 
+margin-right: 4%;
+}
+.feedback-content {
+flex: 1; /* Allow content to fill the space */
+padding-right: 10px; /* Add padding next to the logo */
+order: 1; 
+}
+.feedback-rating {
+color: #FFD700;
+margin-top: -1%;
+}
+.feedback-text {
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-weight: 500;
+}
+.feedback-navigation {
+position: absolute;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 14px;
+}
+
+.prev1, .next1 {
+cursor: pointer;
+background: none;
+border: none;
+padding: 0 10px;
+font-size: inherit;
+}
+
+.prev1:hover, .next:hover {
+text-decoration: underline;
+}
+
+.slide-number {
+margin: 0 1em; /* Space between navigation buttons and number */
+}

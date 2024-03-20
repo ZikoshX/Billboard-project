@@ -1,0 +1,148 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Body Styling */
+  body {
+    background-color: #f4f4f4;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Navbar Styling */
+  nav {
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    text-transform: uppercase;
+  }
+  
+
+  
+  /* Active Nav Item */
+  nav a.active {
+    background: #5cb85c;
+    border-radius: 5px;
+  }
+  
+  /* Main Content */
+  .main-content {
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  /* Dashboard Welcome */
+  .dashboard-welcome {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Content Section */
+  .content-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .content-section a {
+    display: block;
+    background: #5cb85c;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .content-section a:hover {
+    background: #489548;
+  }
+  
+  /* Footer */
+  footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .contact-info {
+    margin: 10px;
+  }
+  
+  .app-links {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  .app-links a {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  /* Add appropriate hover effects */
+  .app-links a:hover {
+    opacity: 0.7;
+  }
+  
+  /* Add media queries for responsiveness */
+  @media screen and (max-width: 768px) {
+    .content-section {
+      grid-template-columns: 1fr;
+    }
+  
+    .footer-content {
+      flex-direction: column;
+    }
+  }
+  
+  /* Add your own color scheme and branding */
+  :root {
+    --primary-color: #5cb85c; /* Example primary color */
+    --text-color: #333;
+    --bg-color: #f4f4f4;
+  }
+  
+  /* Apply the root colors */
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  nav, footer {
+    background: var(--text-color);
+  }
+  
+  nav a.active, .content-section a {
+    background: var(--primary-color);
+  }
+  

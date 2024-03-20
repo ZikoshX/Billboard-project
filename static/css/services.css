@@ -1,0 +1,35 @@
+/* services.css */
+
+.services-content {
+    padding: 20px;
+}
+
+.service-section {
+    margin-bottom: 30px;
+}
+
+.service-item {
+    margin-bottom: 20px;
+}
+
+.service-item h3 {
+    font-size: 20px;
+    color: #333;
+}
+
+.service-item p {
+    color: #666;
+}
+
+.additional-content {
+    margin-top: 30px;
+}
+
+.additional-content h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.additional-content p {
+    color: #666;
+}

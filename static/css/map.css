@@ -1,0 +1,19 @@
+.buttonmore {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: black;
+    color: white; /* Changed from font-style to color */
+    font-size: 19x;
+    font-family: 'Dubai Medium';
+    cursor: pointer;
+    margin-top: 20%;
+    margin-left: 47%;
+  }
+
+
+  #map {
+            height: 400px;
+            width: 100%;
+        }

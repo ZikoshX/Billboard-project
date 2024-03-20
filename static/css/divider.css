@@ -1,0 +1,11 @@
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .divider hr {
+    flex-grow: 1;
+  }

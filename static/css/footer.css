@@ -1,0 +1,46 @@
+.footer {
+    background-color: #000; /* Assuming a black background */
+    color: #fff; /* White text color */
+    padding: 20px 0; /* Padding above and below the footer content */
+    margin-top: 5%;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-around; /* This will space out the footer sections */
+    align-items: center;
+    max-width: 1400px; /* Or the width of your content area */
+    margin: 0 auto; /* This will center the container */
+    margin-left: 8%;
+
+  }
+  
+  .footer-section h3 {
+    margin-bottom: 10px; /* Space between the title and the content */
+    margin-left: -70%;
+  }
+  .footer-section p {
+    margin-left: -70%;
+  }
+  
+  .footer-section img {
+    margin-right:10px; /* Space between images if needed */
+    vertical-align: middle; /* Align images if they are inline */
+    width: 120px;
+  }
+  
+  /* Responsive adjustments if needed */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column; /* Stack footer sections on top of each other on smaller screens */
+    }
+  
+    .footer-section {
+      margin-bottom: 20px; /* Space between sections when stacked */
+    }
+  
+    .footer-section img {
+      margin-bottom: 10px; /* Space between images when stacked */
+    }
+  }
+  

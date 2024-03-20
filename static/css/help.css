@@ -1,0 +1,23 @@
+/* Styles for the Help page */
+
+.help-content {
+    margin: 20px;
+}
+
+.help-section {
+    margin-bottom: 30px;
+}
+
+.faq-section {
+    margin-top: 50px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    margin-bottom: 10px;
+}
+
+/* Add more styles as needed */

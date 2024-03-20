@@ -1,0 +1,137 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Kanit';
+    background-color: #ffffff;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff; 
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 90px; 
+    margin-right: 10px;
+  }
+
+  .logo-text {
+    font-size: 24px; 
+    color: #000;
+    font-weight: bold;
+  }
+
+  .navbar .nav-links {
+    list-style: none;
+    display: flex;
+    margin-left: 100%;
+  }
+
+  .navbar .nav-links li a {
+    text-decoration: none;
+    color: #000; 
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-size: 20px; 
+    transition: color 0.3s;
+  }
+
+  .navbar .nav-links li a:hover {
+    color: #555;
+  }
+
+  .language-select select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+
+  .signup-container {
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    width: 400px;
+    margin : auto;
+    margin-top: -5%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+
+  .signup-container h2 {
+    color: #333;
+    font-size: 40px;
+    margin-bottom: -5%;
+    font-family: 'Dubai Medium';
+  }
+
+  .signup-container p {
+    color: #333;
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    margin-bottom: 7%;
+  }
+  .signup-container a {
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    text-decoration: none;
+  }
+
+  .signup-container label {
+    font-size: 12px;
+    font-family: 'Dubai Medium';
+    color: #F20000;
+    text-decoration: none;
+  }
+  .signup-container form {
+    margin-bottom: 1em;
+  }
+
+  .name-fields {
+    display: flex;
+    gap: 8px;
+    width: calc(80% - 20px);
+    margin-left: 12%;
+
+  }
+  .signup-container input[type="text"],
+  .signup-container input[type ="text"],
+  .signup-container input[type="text"],
+  .signup-container input[type="email"],
+  .signup-container input[type="tel"],
+  .signup-container input[type="password"] {
+    width: calc(75% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 155px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+
+  .signup-container button {
+    width: calc(50% - 30px);
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    cursor: pointer;
+  }
+
+  .signup-container button:hover {
+    background-color: black;
+  }

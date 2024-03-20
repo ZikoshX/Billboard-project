@@ -1,0 +1,120 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Kanit';
+    background-color: #ffffff;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff; 
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 90px; 
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    font-size: 24px; 
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .navbar .nav-links {
+    list-style: none;
+    display: flex;
+    margin-left: 100%;
+  }
+  
+  .navbar .nav-links li a {
+    text-decoration: none;
+    color: #000; 
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-size: 20px; 
+    transition: color 0.3s;
+  }
+  
+  .navbar .nav-links li a:hover {
+    color: #555;
+  }
+  
+  .language-select select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-container {
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    width: 400px;
+    margin : auto;
+    margin-bottom: -10%;
+    position: relative;
+   
+    transform: translateY(-10%);
+    text-align: center;
+  }
+  
+  .login-container h2 {
+    color: #333;
+    font-size: 40px;
+    margin-bottom: -5%;
+    font-family: 'Dubai Medium';
+  }
+  
+  .login-container p {
+    color: #333;
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    margin-bottom: 7%;
+  }
+  .login-container a {
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    text-decoration: none;
+  }
+  .login-container form {
+    margin-bottom: 1em;
+  }
+  
+  .login-container input[type="text"],
+  .login-container input[type="password"] {
+    width: calc(80% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 155px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+  
+  .login-container button {
+    width: calc(50% - 30px);
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    font-size: 1em;
+    font-family: 'Dubai Medium';
+    cursor: pointer;
+  }
+  
+  .login-container button:hover {
+    background-color: #4A7BE4;
+  }
+  
+  

@@ -1,0 +1,28 @@
+.cost-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  .cost-container h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: #4683b7;
+    font-weight: 700;
+  }
+  .row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  .column {
+    width: 30%;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }

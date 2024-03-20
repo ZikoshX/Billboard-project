@@ -1,0 +1,40 @@
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .social-button {
+    border: 1px solid;
+    padding: 5px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .google-button{
+    background-color: #ffffff;
+    border-color: #F20000;
+    color: #F20000;
+  }
+  
+  .facebook-button{
+    background-color: #ffffff;
+    border-color: #3B5998;
+    color: #3B5998;
+    padding: 5px 11px;
+  }
+  
+  .social-button img {
+      width: 24px;
+        height: 24px;
+        margin: 0 10px;
+  }
+  
+  .social-button:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
