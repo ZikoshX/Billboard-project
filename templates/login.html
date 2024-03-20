@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/divider.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/social-buttons.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="login-container">
+        <h2>Log in</h2>
+        <p>New to Happy Client? <a href="{{ url_for('signup') }}" style="color: #F20000;">Sign up</a></p>
+
+        <form method="post" class="form-horizontal">
+            <input type="text" name="username" placeholder="Username" class="form-control" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div><a  style="color: #F20000;" href="{{ url_for('forgot_password') }}">Forgot password?</a></div>
+            <button type="submit" class="login-btn" style="color: white;">Log in</button>
+        </form>
+        {% with messages = get_flashed_messages()  %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="divider"><hr><span>or</span><hr></div>
+
+        <div class="social-buttons">
+            <a href="{{ google_login_url }}" class="social-button google-button">
+                <img src="{{ url_for('static', filename='images/google.jpg') }}" alt="Google" > Google
+            </a>
+            
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+
+<header class="header">
+    <div class="logo-container">
+        <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='images/happyclient.jpg') }}" alt="Happy Client Logo" class="logo">
+        <span class="logo-text" >Happy Client</span>
+    </a>
+    </div>
+    <nav class="navbar">
+        <ul class="nav-links">
+            
+            <li><a href="#">Help</a></li>
+            <li><a href="{{ url_for('services') }}">Services</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Signup</a></li>
+
+        </ul>
+    </nav>
+    <div class="language-select">
+        <select>
+            <option value="en">English</option>
+            <option value="ru">Russian</option>
+            <option value="kz">Kazakh</option>
+        </select>
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

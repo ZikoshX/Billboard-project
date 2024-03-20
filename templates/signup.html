@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Happy Client Sign up{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/divider.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/social-buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="signup-container">
+        <h2>Sign up</h2>
+        <p>Already have an account? <a href="{{ url_for ('login') }}" style="color: #F20000;" class="button-like-link">Log in</a></p>
+        <form action="{{ url_for('signup') }}" method="post" autocomplete="off">
+                <div class="name-fields">
+                    <input type="text" name="name" placeholder="name">
+                    <input type="text" name="lastname" placeholder="lastname">
+                </div>
+                <input type="text" name="username" placeholder="Username"  class="form-control" id="uesrname"required>
+                <input type="email" name="email" placeholder="Email" class="form-control" id="email" required>
+                <input type="tel" name="phone_number" placeholder="Phone number"  class="form-control" id="phone_number" required>
+                <input type="password" name="password" placeholder="Password"  class="form-control" id="password"required>
+                <input type="password" name="reset_password" placeholder="Reset password"  class="form-control" id="reset_password"required>
+                <div><label>At least 8 characters (needs a number and lowercase letter)!</label></div>
+                <button type="submit" class="login-btn" style="color: white;" value="Signup">Sign up</button>
+
+
+            </form>
+            {% with messages = get_flashed_messages()  %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ message }}
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+       
+        <div class="social-buttons">
+        </div>
+    </div>
+{% endblock %}

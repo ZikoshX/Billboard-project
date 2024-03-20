@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Client Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/slideshow.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/map1.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cost.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo-container"> 
+          <img src="{{ url_for('static', filename='images/happyclient.jpg') }}" alt="Happy Client Logo" class="logo">
+          <span class="logo-text">Happy Client</span>
+        </div>
+        <nav class="navbar">
+       
+          <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="{{ url_for('help') }}">Help</a></li>
+            <li><a href="{{ url_for('services') }}">Services</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Signup</a></li>
+          </ul>
+        </nav>
+        <div clss="language-select">
+          <select>
+            <option value="en">English</option>
+            <option value="ru">Russion</option>
+            <option value="kz">Kazakh</option>
+          </select>
+        </div>
+      </header>
+
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard1.jpg') }}" style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard2.jpg') }}" style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard3.jpg') }}" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10096;</a>
+  <a class="next" onclick="plusSlides(1)">&#10097;</a>
+</div>
+
+<script src="{{ url_for('static', filename='js/ssh.js') }}">
+</script>
+
+<button class="buttonmore">More info</button>
+    <!-- The div where the map will be rendered -->
+    <div id="map"></div>
+    <script src="{{ url_for('static', filename='js/map.js') }}">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR0oZB5mZQ_lWNc2kcrmfMbkaNOkw_AyE&callback=initMap">
+    </script>
+    
+    <div class="cost-container">
+      <h1>The cost of accommodation</h1>
+      <div class="row">
+        <div class="column">
+          <ul>
+            <li>Алмарасан – 220 000 тг</li>
+            <li>г. Алматы – 220 000 тг</li>
+            <li>Бишкекская трасса – 240 000 тг</li>
+            <li>п. Воргалдай – от 120 000 тг</li>
+            <li>Верхняя Каменка – 240 000 тг</li>
+            <li>г. Есик – от 110 000 тг</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li>г. Капшагай – 150 000 тг</li>
+            <li>Капшагайская трасса – 240 000 тг</li>
+            <li>г. Каскелен – от 150 000 тг</li>
+            <li>Кульджинский тракт – от 180 000 тг</li>
+            <li>п. Отеген Батыр (ГРЭС) – от 120 000 тг</li>
+            <li>г. Талдыкорган – от 70 000 тг</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li>г. Талгар – 240 000 тг</li>
+            <li>Талгарская трасса – от 180 000 тг</li>
+            <li>п. Узынагаш – 110 000 тг</li>
+            <li>Шамалган станция – от 100 000 тг</li>
+            <li>Алматы – Нур-Султан – от 100 000 тг</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    
+<div class="feedback-container">
+  <div class="feedback-slide">
+      <div class="feedback-logo">
+          <img src="{{ url_for('static', filename='images/sdu_logo.jpg') }}" style="width: 140px; height: auto;" alt="Logo">
+        </div>
+        <div class="feedback-content">
+          <h2>SDU University</h2>
+          <div class="feedback-rating">
+            &#9733; &#9733; &#9733; &#9733; &#9733;
+          </div>
+          <p class="feedback-text">
+              "Выражаем искреннюю признательность за великолепный рекламный щит! Он сияет яркостью, изысканностью и содержательностью, притягивая взгляды прохожих. Это замечательный метод выделить присутствие нашего вуза в городской среде. Благодарим за оригинальный подход и высокий уровень профессионализма!"</p>
+        </div>
+    </div>
+  <div class="feedback-slide">
+      <div class="feedback-logo">
+        <!-- You can insert the logo image here with an img tag -->
+        <img src="{{ url_for('static', filename='images/almau.jpg') }}"style="width: 140px; height: auto;" alt="Logo">
+      </div>
+      <div class="feedback-content">
+        <h2>Almau University</h2>
+        <div class="feedback-rating">
+          &#9733; &#9733; &#9733; &#9733; &#9733;
+        </div>
+        <p class="feedback-text">"Благодарим компанию за потрясающий билборд! Яркий, стильный и информативный – он привлек внимание всех вокруг. Отличный способ подчеркнуть наш университет в городской среде. Спасибо за креативный подход и профессионализм!"</p>
+      </div>
+  </div>
+  <div class="feedback-slide">
+      <div class="feedback-logo">
+        <!-- You can insert the logo image here with an img tag -->
+        <img src="{{ url_for('static', filename='images/kazPost.jpg') }}" style="width: 140px; height: auto;" alt="Logo">
+      </div>
+      <div class="feedback-content">
+        <h2>KazPost</h2>
+        <div class="feedback-rating">
+          &#9733; &#9733; &#9733; &#9733; &#9733;
+        </div>
+        <p class="feedback-text">
+          "Использование рекламного щита компании стало отличным ходом для нашей рекламной кампании. Лаконичный дизайн и четкость сообщения сделали его заметным и эффективным инструментом, привлекая внимание клиентов к нашим услугам. Спасибо за ваш профессионализм и качество работы!"</p>
+      </div>
+  </div>
+  <div class="feedback-slide">
+      <div class="feedback-logo">
+        <!-- You can insert the logo image here with an img tag -->
+        <img src="{{ url_for('static', filename='images/beeline.jpg') }}" style="width: 140px; height: auto;" alt="Logo">
+      </div>
+      <div class="feedback-content">
+        <h2>Beeline</h2>
+        <div class="feedback-rating">
+          &#9733; &#9733; &#9733; &#9733; &#9733;
+        </div>
+        <p class="feedback-text">
+          "Благодарим за надёжность и скорость! Наш выбор — Beeline — обеспечил мгновенный доступ к миру информации. Отличное соединение, которое помогает нам оставаться на связи. Ваш сервис заслуживает наивысшей оценки!"</p>
+      </div>
+</div>
+
+<div class="feedback-navigation">
+  <button class="prev1" onclick="moveSlidee(-1)">&#10094;</button>
+  <span class="slide-number">1 / 6</span>
+  <button class="next1" onclick="moveSlidee(1)">&#10095;</button>
+</div>
+
+</div>
+<script  src="{{ url_for('static', filename='js/fb.js') }}"></script>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <img src="{{ url_for('static', filename='images/appstore.jpg') }}" alt="App Store" />
+      <img src="{{ url_for('static', filename='images/googleplay.jpg') }}" alt="Google Play" />
+    </div>
+    <div class="footer-section">
+      <h3>Contacts</h3>
+      <p>+7-777-530-47-53</p>
+      <p>+7-777-530-40-50</p>
+    </div>
+    <div class="footer-section">
+      <h3>Information</h3>
+      <p>Address: Abylai khan 1/1</p>
+      <p>About company</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Client Login</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Kanit';
+    background-color: #ffffff;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff; 
+  }
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 90px; 
+    margin-right: 10px;
+  }
+
+  .logo-text {
+    font-size: 24px; 
+    color: #000;
+    font-weight: bold;
+  }
+
+  .navbar .nav-links {
+    list-style: none;
+    display: flex;
+    margin-left: 60%;
+  }
+
+  .navbar .nav-links li a {
+    text-decoration: none;
+    color: #000; 
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-size: 20px; 
+    transition: color 0.3s;
+  }
+
+  .navbar .nav-links li a:hover {
+    color: #555;
+  }
+
+  .language-select select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+</style>
+<style>
+* { box-sizing: border-box; }
+body { font-family: Arial; margin: 0; }
+
+.mySlides { display: none; }
+img { vertical-align: middle; }
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 80%;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 5px 0 0 3px;
+  
+}
+
+.prev {
+  left: 0;
+  border-radius: 5px 0 0 3px;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+</style>
+
+<style>
+  .buttonmore {
+    width: 120px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: black;
+    color: white; /* Changed from font-style to color */
+    font-size: 18px;
+    font-family: 'Dubai Medium';
+    cursor: pointer;
+    margin-top: 2%;
+    margin-left: 47%;
+  }
+
+  #map {
+            height: 400px;
+            width: 80%;
+            position: relative;
+            margin: auto;
+            margin-top: 3%;
+}
+</style>
+<style>
+  .cost-container {
+    max-width: 80%;
+    justify-content: center;
+  }
+  .cost-container h1 {
+    font-size: 30px;
+    justify-self: center;
+  }
+</style>
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo-container"> 
+          <img src="2024-02-21_13-16-59.png" alt="Happy Client Logo" class="logo">
+          <span class="logo-text">Happy Client</span>
+        </div>
+        <nav class="navbar">
+          <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Signup</a></li>
+          </ul>
+        </nav>
+        <div class="language-select">
+          <select>
+            <option value="en">English</option>
+            <option value="ru">Russion</option>
+            <option value="kz">Kazakh</option>
+          </select>
+        </div>
+      </header>
+
+<!-- Slideshow container -->
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard1.jpg') }}"> style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard2.jpg') }}" style="width:100%">
+  </div>
+
+  <div class="mySlides fade">
+    <img src="{{ url_for('static', filename='images/billboard3.jpg') }}" style="width:100%">
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10096;</a>
+  <a class="next" onclick="plusSlides(1)">&#10097;</a>
+</div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+var slides, timer;
+
+function plusSlides(n) {
+  clearTimeout(timer); // Reset the timer on manual navigation
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  clearTimeout(timer); // Reset the timer on manual navigation
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+  timer = setTimeout(function(){ plusSlides(1) }, 4000); // Change slide every 3 seconds
+}
+</script>
+
+
+
+    <button class="buttonmore">More info</button>
+    <!-- The div where the map will be rendered -->
+    <div id="map"></div>
+    <script>
+        // Function to initialize and add the map
+        function initMap() {
+            // The location of Almaty
+            var almatyLocation = { lat: 43.238949, lng: 76.889709 };
+            // The map, centered at Almaty
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, // Adjusted zoom level for city view
+                center: almatyLocation,
+                styles: [
+                    {elementType: 'geometry', stylers: [{color: '#f5f5f5'}]},
+                    {elementType: 'labels.icon', stylers: [{visibility: 'off'}]},
+                    {elementType: 'labels.text.fill', stylers: [{color: '#616161'}]},
+                    {elementType: 'labels.text.stroke', stylers: [{color: '#f5f5f5'}]},
+                    {
+                        featureType: 'administrative.land_parcel',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#bdbdbd'}]
+                    },
+                    {
+                        featureType: 'poi',
+                        elementType: 'geometry',
+                        stylers: [{color: '#eeeeee'}]
+                    },
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#757575'}]
+                    },
+                    {
+                        featureType: 'poi.park',
+                        elementType: 'geometry',
+                        stylers: [{color: '#e5e5e5'}]
+                    },
+                    {
+                        featureType: 'poi.park',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#9e9e9e'}]
+                    },
+                    {
+                        featureType: 'road',
+                        elementType: 'geometry',
+                        stylers: [{color: '#ffffff'}]
+                    },
+                    {
+                        featureType: 'road.arterial',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#757575'}]
+                    },
+                    {
+                        featureType: 'road.highway',
+                        elementType: 'geometry',
+                        stylers: [{color: '#dadada'}]
+                    },
+                    {
+                        featureType: 'road.highway',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#616161'}]
+                    },
+                    {
+                        featureType: 'road.local',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#9e9e9e'}]
+                    },
+                    {
+                        featureType: 'transit.line',
+                        elementType: 'geometry',
+                        stylers: [{color: '#e5e5e5'}]
+                    },
+                    {
+                        featureType: 'transit.station',
+                        elementType: 'geometry',
+                        stylers: [{color: '#eeeeee'}]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'geometry',
+                        stylers: [{color: '#c9c9c9'}]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'labels.text.fill',
+                        stylers: [{color: '#9e9e9e'}]
+                    }
+                ]
+            });
+    
+            var locations = [
+                { lat: 43.238949, lng: 76.889709, name: "Location 1" },
+                { lat: 43.255058, lng: 76.912628, name: "Location 2" },
+                { lat: 43.222014, lng: 76.851248, name: "Location 3" }
+            ];
+    
+            // Loop through the locations and place a marker for each one
+            locations.forEach(function(location) {
+                var marker = new google.maps.Marker({
+                    position: {lat: location.lat, lng: location.lng},
+                    map: map,
+                    title: location.name // Optional: add a title/name to each marker
+                });
+            });
+        }
+    </script>
+    <!-- Load the Google Maps API -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR0oZB5mZQ_lWNc2kcrmfMbkaNOkw_AyE&callback=initMap">
+    </script>
+    
+    
+    <div class="cost-container">
+      <h1>The cost of accommodation</h1>
+    </div>
+    
+</body>
+</html>

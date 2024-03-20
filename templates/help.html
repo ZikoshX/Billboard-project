@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Happy Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/happyclient.jpg') }}" alt="Happy Client Logo" class="logo">
+        <span class="logo-text">Happy Client</span>
+    </div>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="{{ url_for('services') }}">Services</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Signup</a></li>
+        </ul>
+    </nav>
+
+    <div class="language-select">
+        <select>
+            <option value="en">English</option>
+            <option value="ru">Russian</option>
+            <option value="kz">Kazakh</option>
+        </select>
+    </div>
+</header>
+
+<main class="help-content">
+    <section class="help-section">
+        <h2>Need Help?</h2>
+        <p>If you need assistance or have any questions, feel free to reach out to our support team.</p>
+        <p>You can contact us via email at support@happyclient.com or call us at +7 700 343 57 89.</p>
+    </section>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How do I reset my password?</h3>
+            <p>To reset your password, go to the login page and click on the "Forgot Password" link. Follow the instructions to reset your password.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I change my account information?</h3>
+            <p>Yes, you can change your account information by going to your account settings page. From there, you can update your profile, email, or password.</p>
+        </div>
+        <!-- Add more FAQ items as needed -->
+    </section>
+</main>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <img src="{{ url_for('static', filename='images/appstore.jpg') }}" alt="App Store" />
+            <img src="{{ url_for('static', filename='images/googleplay.jpg') }}" alt="Google Play" />
+        </div>
+        <div class="footer-section">
+            <h3>Contacts</h3>
+            <p>+7 700 343 57 89</p>
+            <p>support@happyclient.com</p>
+        </div>
+        <div class="footer-section">
+            <h3>Information</h3>
+            <p>123 Happy Street, City, Country</p>
+            <p>About company</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

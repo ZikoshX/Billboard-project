@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Happy Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/happyclient.jpg') }}" alt="Happy Client Logo" class="logo">
+        <span class="logo-text">Happy Client</span>
+    </div>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('help') }}">Help</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Signup</a></li>
+        </ul>
+    </nav>
+    <div class="language-select">
+        <select>
+            <option value="en">English</option>
+            <option value="ru">Russian</option>
+            <option value="kz">Kazakh</option>
+        </select>
+    </div>
+</header>
+
+<main class="services-content">
+    <section class="service-section">
+        <h2>Our Services</h2>
+        <p>Discover our range of services designed to meet your needs.</p>
+        <div class="service-item">
+            <h3>Service 1</h3>
+            <p>We pride ourselves on providing the best service possible. With Service 1, we offer unmatched quality and efficiency to meet your needs.</p>
+        </div>
+        <div class="service-item">
+            <h3>Service 2</h3>
+            <p>Experience excellence with Service 2. Our team goes above and beyond to ensure your satisfaction, delivering results that exceed expectations.</p>
+        </div>
+        
+    </section>
+</main>
+<section class="order-section">
+    <h2>Order Billboard</h2>
+    <p>Contact us to order a billboard for your advertisement needs. Our team will work closely with you to create a compelling and effective advertising campaign that drives results.</p>
+</section>
+<br>
+<br>
+<br>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <img src="{{ url_for('static', filename='images/appstore.jpg') }}" alt="App Store" />
+            <img src="{{ url_for('static', filename='images/googleplay.jpg') }}" alt="Google Play" />
+        </div>
+        <div class="footer-section">
+            <h3>Contacts</h3>
+            <p>+7 700 343 57 89</p>
+            <p>support@happyclient.com</p>
+        </div>
+        <div class="footer-section">
+            <h3>Information</h3>
+            <p>123 Happy Street, City, Country</p>
+            <p>About company</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
