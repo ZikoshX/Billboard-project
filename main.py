@@ -13,7 +13,6 @@ from flask_admin import AdminIndexView, expose, BaseView
 from wtforms import PasswordField
 from flask_admin.model import typefmt
 from flask_admin.form import SecureForm
-
 app=Flask(__name__)
 
 
@@ -21,11 +20,12 @@ app=Flask(__name__)
 def add(num1, num2):
     return str(num1 + num2)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_SERVER'] = os.environ.get('smtp.gmail.com')
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'mashrapzere44@gmail.com'
-app.config['MAIL_PASSWORD'] = 'cdha zmdd hhlh tjvq'
+app.config['MAIL_USERNAME'] = os.environ.get('mashrapzere44@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('cdha zmdd hhlh tjvq')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 
 mail = Mail(app)
 
@@ -33,7 +33,6 @@ app.secret_key = secrets.token_hex(16)  # Generate a random 32-character hexadec
 
 GOOGLE_CLIENT_ID='187314309127-bo52fulqluaqls64aefmcm453k3mrg5p.apps.googleusercontent.com'
 client_secrets_file=os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-
 #flow = Flow.from_client_secrets_file(
    # client_secrets_file=client_secrets_file,
    # scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
