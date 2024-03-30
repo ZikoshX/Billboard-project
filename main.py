@@ -1,7 +1,5 @@
 import pathlib
 from flask import Flask, render_template, request, flash, url_for, session, redirect, abort, session
-import psycopg2
-import psycopg2.extras
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
