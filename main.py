@@ -4,6 +4,10 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import os
+from google_auth_oauthlib.flow import Flow
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from flask_mail import Mail, Message
 import uuid
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
@@ -12,7 +16,6 @@ from flask_admin import AdminIndexView, expose, BaseView
 from wtforms import PasswordField
 from flask_admin.model import typefmt
 from flask_admin.form import SecureForm
-
 app=Flask(__name__)
 
 
@@ -28,7 +31,7 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'cdha zmdd hhlh tj
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'mashrapzere44@gmail.com')
 
 # Initialize Flask-Mail
-#mail = Mail(app)
+mail = Mail(app)
 
 # Generate a random secret key for Flask session
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(16))
@@ -36,9 +39,11 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(16))
 # Google OAuth configuration using environment variables
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '187314309127-bo52fulqluaqls64aefmcm453k3mrg5p.apps.googleusercontent.com')
 client_secrets_file = os.environ.get('CLIENT_SECRETS_FILE', os.path.join(pathlib.Path(__file__).parent, "client_secret.json"))
-#pes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-   # redirect_uri="http://127.0.0.1:5000/google-login"
-#)
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/google-login"
+)
 
 DB_HOST='localhost'
 DB_NAME='sampledb'
@@ -188,14 +193,14 @@ def callback():
     authorization_response = request.url
 
     # Fetch the token
-    #flow.fetch_token(authorization_response=authorization_response)
+    flow.fetch_token(authorization_response=authorization_response)
 
     # Get user info from Google
-    #google_id_token = flow.credentials.id_token
-    #google_user_info = id_token.verify_oauth2_token(google_id_token, requests.Request(), GOOGLE_CLIENT_ID)
+    google_id_token = flow.credentials.id_token
+    google_user_info = id_token.verify_oauth2_token(google_id_token, requests.Request(), GOOGLE_CLIENT_ID)
 
     # Check if the user already exists in your database
-    user = Users.query.filter_by(email=['email']).first()
+    user = Users.query.filter_by(email=google_user_info['email']).first()
 
     if user:
         # User exists, log them in
@@ -279,10 +284,10 @@ def login():
 
         
 
-   # elif request.method == 'GET':
+    elif request.method == 'GET':
         # Display login form with Google login link
-      #  google_login_url, _ = flow.authorization_url()
-       # return render_template('login.html', google_login_url=google_login_url)
+        google_login_url, _ = flow.authorization_url()
+        return render_template('login.html', google_login_url=google_login_url)
 
     return render_template('login.html')
 
@@ -398,4 +403,4 @@ def reset_password(token):
 
 
 if __name__=='__main__':
-   app.run(debug=True, port=5000)
+   app.run(debug=True, port=5001)
