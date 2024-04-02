@@ -4,9 +4,6 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import os
-from google_auth_oauthlib.flow import Flow
-from google.oauth2 import id_token
-from google.auth.transport import requests
 from flask_mail import Mail, Message
 import uuid
 from flask_sqlalchemy import SQLAlchemy
@@ -16,6 +13,7 @@ from flask_admin import AdminIndexView, expose, BaseView
 from wtforms import PasswordField
 from flask_admin.model import typefmt
 from flask_admin.form import SecureForm
+
 app=Flask(__name__)
 
 
@@ -39,11 +37,9 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(16))
 # Google OAuth configuration using environment variables
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '187314309127-bo52fulqluaqls64aefmcm453k3mrg5p.apps.googleusercontent.com')
 client_secrets_file = os.environ.get('CLIENT_SECRETS_FILE', os.path.join(pathlib.Path(__file__).parent, "client_secret.json"))
-flow = Flow.from_client_secrets_file(
-    client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-    redirect_uri="http://127.0.0.1:5000/google-login"
-)
+#pes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+   # redirect_uri="http://127.0.0.1:5000/google-login"
+#)
 
 DB_HOST='localhost'
 DB_NAME='sampledb'
@@ -52,7 +48,8 @@ DB_PASS='13579'
 
 #conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://user:d2hGA3GAmNDa4kfvJsT1F70iOrk3STXb@dpg-co2sf1f109ks738oqb30-a/sampledb_55ts
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 class Manager(db.Model):
@@ -60,15 +57,14 @@ class Manager(db.Model):
     name = db.Column(db.String(50))
     lastname = db.Column(db.String(50))
     username = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(128))  
+    password = db.Column(db.String(255))  
     email = db.Column(db.String(100), unique=True)
     phone_number = db.Column(db.String(20))
     posts = db.relationship('Posts', backref='manager', lazy='dynamic')
 
     def __repr__(self):
         return f'<Manager {self.username}>'
-    
-   
+
     
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -81,6 +77,7 @@ class Posts(db.Model):
     def __repr__(self):
         return f'<Post {self.title}>'
     
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128))
@@ -192,14 +189,14 @@ def callback():
     authorization_response = request.url
 
     # Fetch the token
-    flow.fetch_token(authorization_response=authorization_response)
+    #flow.fetch_token(authorization_response=authorization_response)
 
     # Get user info from Google
-    google_id_token = flow.credentials.id_token
-    google_user_info = id_token.verify_oauth2_token(google_id_token, requests.Request(), GOOGLE_CLIENT_ID)
+    #google_id_token = flow.credentials.id_token
+    #google_user_info = id_token.verify_oauth2_token(google_id_token, requests.Request(), GOOGLE_CLIENT_ID)
 
     # Check if the user already exists in your database
-    user = Users.query.filter_by(email=google_user_info['email']).first()
+    user = Users.query.filter_by(email=['email']).first()
 
     if user:
         # User exists, log them in
@@ -254,6 +251,18 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
+        # Attempt to authenticate as a user
+        user = Users.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            # Authentication successful, set session variables for user
+            session['loggedin'] = True
+            session['user_id'] = user.id
+            session['user_name'] = user.name
+            flash('User login successful!', 'success')
+            return redirect(url_for('profile'))  # Redirect to user profile route
+        else:
+            flash('Users does not exist', 'danger')
+
         # Attempt to authenticate as a manager
         manager = Manager.query.filter_by(username=username).first()
         if manager:
@@ -269,23 +278,12 @@ def login():
         else:
             flash('Manager does not exist', 'danger')
 
-        # Attempt to authenticate as a user
-        user = Users.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            # Authentication successful, set session variables for user
-            session['loggedin'] = True
-            session['user_id'] = user.id
-            session['user_name'] = user.name
-            flash('User login successful!', 'success')
-            return redirect(url_for('profile'))  # Redirect to user profile route
         
-        # If authentication fails for both manager and user
-        flash('Incorrect username or password', 'danger')
 
-    elif request.method == 'GET':
+   # elif request.method == 'GET':
         # Display login form with Google login link
-        google_login_url, _ = flow.authorization_url()
-        return render_template('login.html', google_login_url=google_login_url)
+      #  google_login_url, _ = flow.authorization_url()
+       # return render_template('login.html', google_login_url=google_login_url)
 
     return render_template('login.html')
 
@@ -401,4 +399,4 @@ def reset_password(token):
 
 
 if __name__=='__main__':
-   app.run(debug=True, port=5001)
+   app.run(debug=True, port=5000)
