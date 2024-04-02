@@ -4,7 +4,6 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import os
-from flask_mail import Mail, Message
 import uuid
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
@@ -29,7 +28,7 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'cdha zmdd hhlh tj
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'mashrapzere44@gmail.com')
 
 # Initialize Flask-Mail
-mail = Mail(app)
+#mail = Mail(app)
 
 # Generate a random secret key for Flask session
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(16))
