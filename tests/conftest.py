@@ -1,7 +1,7 @@
 import unittest
 import sys
 sys.path.append('/Users/admin/Desktop/billboard project')
-from main import app, db
+from app import app, db
 
 
 class TestLoginSignup(unittest.TestCase):
