@@ -11,14 +11,12 @@
 
 <header class="header">
     <div class="logo-container">
-        <a href="{{ url_for('home') }}">
         <img src="{{ url_for('static', filename='images/happyclient.jpg') }}" alt="Happy Client Logo" class="logo">
         <span class="logo-text" >Happy Client</span>
     </a>
     </div>
     <nav class="navbar">
         <ul class="nav-links">
-            
             <li><a href="#">Help</a></li>
             <li><a href="{{ url_for('services') }}">Services</a></li>
             <li><a href="{{ url_for('login') }}">Login</a></li>

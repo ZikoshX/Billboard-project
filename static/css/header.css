@@ -9,7 +9,7 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 10px;
     background-color: #fff; 
   }
   .logo-container {
@@ -32,7 +32,7 @@ body, html {
   .navbar .nav-links {
     list-style: none;
     display: flex;
-    margin-left: 60%;
+    margin-right: 150%;
   }
 
   .navbar .nav-links li a {

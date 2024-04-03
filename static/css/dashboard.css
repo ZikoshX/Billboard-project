@@ -1,148 +1,116 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Body Styling */
-  body {
-    background-color: #f4f4f4;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
-  }
-  
-  /* Navbar Styling */
-  nav {
-    color: #fff;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-  }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 15px;
-    text-transform: uppercase;
-  }
-  
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Kanit';
+  background-color: #ffffff;
+}
 
-  
-  /* Active Nav Item */
-  nav a.active {
-    background: #5cb85c;
-    border-radius: 5px;
-  }
-  
-  /* Main Content */
-  .main-content {
-    text-align: center;
-    padding: 40px 20px;
-    margin: 20px;
-    background: #fff;
-    border-radius: 8px;
-  }
-  
-  /* Dashboard Welcome */
-  .dashboard-welcome {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  /* Content Section */
-  .content-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 20px;
-  }
-  
-  .content-section a {
-    display: block;
-    background: #5cb85c;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-  }
-  
-  .content-section a:hover {
-    background: #489548;
-  }
-  
-  /* Footer */
-  footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 20px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .contact-info {
-    margin: 10px;
-  }
-  
-  .app-links {
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-  }
-  
-  .app-links a {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  /* Add appropriate hover effects */
-  .app-links a:hover {
-    opacity: 0.7;
-  }
-  
-  /* Add media queries for responsiveness */
-  @media screen and (max-width: 768px) {
-    .content-section {
-      grid-template-columns: 1fr;
-    }
-  
-    .footer-content {
-      flex-direction: column;
-    }
-  }
-  
-  /* Add your own color scheme and branding */
-  :root {
-    --primary-color: #5cb85c; /* Example primary color */
-    --text-color: #333;
-    --bg-color: #f4f4f4;
-  }
-  
-  /* Apply the root colors */
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-  
-  nav, footer {
-    background: var(--text-color);
-  }
-  
-  nav a.active, .content-section a {
-    background: var(--primary-color);
-  }
-  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff; 
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 90px; 
+  margin-left: 10px;
+}
+
+.logo-text {
+  font-size: 24px; 
+  color: #000;
+  font-weight: bold;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  margin-left: 10%;
+}
+
+.navbar .nav-links li a {
+  text-decoration: none;
+  color: #000; 
+  padding: 5px 15px;
+  margin: 0 5px;
+  font-size: 20px; 
+  transition: color 0.3s;
+}
+
+.navbar .nav-links li a:hover {
+  color: #555;
+}
+
+.language-select select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile-card {
+  background-color: white;
+  padding: 2em;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  margin : auto;
+  margin-top: -5%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.profile-image {
+  background-color: #ddd;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.edit-button {
+  width: calc(50% - 30px);
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  font-size: 1em;
+  font-family: 'Dubai Medium';
+  cursor: pointer;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.name-fields {
+  display: flex;
+  gap: 8px;
+  width: calc(80% - 20px);
+  margin-left: 12%;
+}
+
+.profile-card input[type="text"],
+.profile-card input[type = "tel"],
+.profile-card input[type="password"] {
+  width: calc(75% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 155px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}

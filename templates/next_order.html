@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/clientorder.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/clientorder1.css') }}">
+</head>
+<body>
+    <nav class="sidebar">
+      <a href="#" class="logo">Happy Client</a>
+
+      <div class="menu-content">
+        <ul class="menu-items">
+
+            <li class="item">
+                <a href="#">Dashboard</a>
+              </li>
+    
+          <li class="item">
+            <a href="#">Order to billboard</a>
+          </li>
+
+           <li class="item">
+            <a href="#">Oder history</a>
+          </li>
+
+          <li class="item">
+            <a href="#">Chat with manager</a>
+          </li>
+
+          <li class="item">
+            <a href="#">Penalty</a>
+          </li>
+
+          <li class="item">
+            <a href="#">Settings</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <nav class="navbar">
+      <i class="fa-solid fa-bars" id="sidebar-close"></i>
+    </nav>
+
+    <div class="container">
+        <h1>Order to Billboard</h1>
+        <form action="/next_order">
+            <label for="city">Choose the region</label>
+            <select id="city" name="city">
+              <option value="nur-sultan">Nur-Sultan</option>
+              <option value="almaty">Almaty</option>
+              <option value="nur-sultan">Kyzylorda</option>
+              <option value="shymkent">Shymkent</option>
+              <option value="karagandy">Karagandy</option>
+              <option value="pavlodar">Pavlodar</option>
+              <option value="ust-kamenogorsk">Ust-Kamenogorsk</option>
+              <option value="semey">Semey</option>
+              <option value="aktobe">Aktobe</option>
+              <option value="kostanay">Kostanay</option>
+              <!-- Add more cities as needed -->
+            </select>
+
+            <label for="size">Choose the size</label>
+            <select id="size" name="size">
+              <option value="4-poster">4 Sheet Poster Size	1016x1524</option>
+              <option value="6-poster">6 Sheet Poster Size	1200x1800</option>
+              <option value="12-poster">12 Sheet Posters Size	3048x1524</option>
+              <option value="16-poster">16 Sheet Poster Size	2032x3048</option>
+              <option value="32-poster">32 Sheet Poster Size	4064x3048</option>
+              <option value="48-poster">48 Sheets Poster Size	6096x3048</option>
+              <option value="64-billboard">64 Sheet Billboards Size	8128x3048</option>
+              <option value="96-poster">96 Sheet Billboards Size	12192x3048</option>
+            </select>
+
+            <label for="display">Choose the type of display</label>
+            <select id="display" name="display">
+              <option value="static">Static Billboard</option>
+              <option value="digital">Digital Billboard</option>
+              <option value="banner">Banner Ads</option>
+              <option value="wallr">Wallscapes</option>
+              <option value="mobile">Mobile Billboards</option>
+              <option value="lamp">Lamp Posts</option>
+              <option value="ineractive">Interactive Billboards</option>
+              <option value="wild">9Wild Postings</option>
+            </select>
+
+            <label for="surface">Choose the type of surface</label>
+            <select id="surface" name="surface">
+              <option value="shield-3x6">Shields 3×6 m</option>
+              <option value="Supersites of 5×12 m">Supersites of 5×12 m</option>
+              <option value="Video screens">Video screens</option>
+              <option value="Portals">Portals</option>
+            </select>
+            <input type="submit" value="Next">
+           
+          </form>
+      </div>
+
+  </body>
+</html>

@@ -32,7 +32,7 @@ body, html {
   .navbar .nav-links {
     list-style: none;
     display: flex;
-    margin-left: 100%;
+    margin-left: 85%;
   }
   
   .navbar .nav-links li a {
@@ -52,6 +52,7 @@ body, html {
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-left: 10px;
   }
   
   .login-container {
