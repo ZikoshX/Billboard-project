@@ -18,6 +18,7 @@ from flask_admin import AdminIndexView, expose, BaseView
 from wtforms import PasswordField
 from flask_admin.model import typefmt
 from flask_admin.form import SecureForm
+from sqlalchemy import URL, create_engine
 
 def create_app():
     # Create Flask application instance
@@ -55,15 +56,20 @@ flow = Flow.from_client_secrets_file(
     redirect_uri="http://127.0.0.1:5000/google-login"
 )
 
-DB_HOST='ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app'
-DB_NAME='koyeb-adm'
-DB_USER='jtfd'
-DB_PASS='eI8CgU4ODGrn'
+connection_string = URL.create(
+    'postgresql',
+    username='koyeb-adm',
+    password='eI8CgU4ODGrn',
+    host='ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app',
+    database='jtfd',
+)
 
-conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+engine = create_engine(connection_string)
+
+#conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://koyeb-adm:eI8CgU4ODGrn@ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app/koyebdb
-DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
-app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+#DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+app.config['SQLALCHEMY_DATABASE_URI'] = engine
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 class Manager(db.Model):
