@@ -65,6 +65,12 @@ connection_string = URL.create(
 )
 
 engine = create_engine(connection_string)
+conn = psycopg2.connect(
+    dbname=connection_string.database,
+    user=connection_string.username,
+    password=connection_string.password,
+    host=connection_string.host
+)
 
 #conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://koyeb-adm:eI8CgU4ODGrn@ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app/koyebdb
