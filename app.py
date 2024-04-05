@@ -133,30 +133,12 @@ class ManagerAdminView(ModelView):
         model.token = token
         super().on_model_change(form, model, is_created)        
 
-class UsersAdminView(ModelView):
-    form_base_class = SecureForm
-    column_exclude_list = ('password',)
-    form_excluded_columns = ('password',)
-    form_extra_fields = {
-        'password': PasswordField('Password')
-    }
-    
-    def on_model_change(self, form, model, is_created):
-        if 'password' in form:
-            model.password = generate_password_hash(form.password.data)
-    def on_model_change(self, form, model, is_created):
-        # Generate a unique token
-        token = str(uuid.uuid4())
-        # Assign the token to the manager
-        model.token = token
-        # Optionally, you can also hash the token before saving it to the database
-        # model.token = generate_password_hash(token)
-        super().on_model_change(form, model, is_created) 
+
 
 admin = Admin(app)
 admin.add_view(ManagerAdminView(Manager, db.session))
 admin.add_view(ModelView(Posts, db.session))
-admin.add_view(UsersAdminView(Users, db.session))
+admin.add_view(ModelView(Users, db.session))
 
 
 @app.route('/home')
