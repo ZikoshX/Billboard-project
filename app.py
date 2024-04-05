@@ -212,62 +212,54 @@ def callback():
     google_user_info = id_token.verify_oauth2_token(google_id_token, requests.Request(), GOOGLE_CLIENT_ID)
 
     # Check if the user already exists in your database
-    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cursor.execute('SELECT * FROM users WHERE email=%s', (google_user_info['email'],))
-    account = cursor.fetchone()
+    user = Users.query.filter_by(email=google_user_info['email']).first()
 
-    if account:
+    if user:
         # User exists, log them in
         session['loggedin'] = True
-        session['id'] = account['id']
-        session['username'] = account['username']
+        session['id'] = user.id
+        session['username'] = user.username
         return redirect(url_for('profile'))
     else:
-        # User doesn't exist, you can register them if needed
+        # User doesn't exist, you may need to register them
         flash('User does not exist. You may need to register.')
         return redirect(url_for('home'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    cursor=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    if request.method=='POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-       name=request.form['name']
-       lastname=request.form['lastname']
-       username=request.form['username']
-       password=request.form['password']
-       email=request.form['email']
-       phone_number=request.form['phone_number']
-       print(name)
-       print(username)
-       print(password)
-       print(email)
+    if request.method == 'POST':
+        name = request.form['name']
+        lastname = request.form['lastname']
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        hashed_password = generate_password_hash(password)
 
-       _hashed_password=generate_password_hash(password)
-
-       cursor.execute('SELECT * FROM users WHERE username=%s', (username,))
-       account=cursor.fetchone()
-       print(account)
-       if account:
-           flash('Account already exists!')
-       elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-           flash('Invalid email address!')
-       elif not re.match(r'[A-Za-z0-9]+', username):
-           flash('Username must contain only characters and numbers!')
-       elif not re.match(r'^(?=.*[a-z])(?=.*\d).{8,}$', password):
-           flash('Password must be at least 8 characters long and contain at least one number and one lowercase letter!')     
-       elif not username or not password or not email:
+        user = Users.query.filter_by(username=username).first()
+        if user:
+            flash('Account already exists!')
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            flash('Invalid email address!')
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            flash('Username must contain only characters and numbers!')
+        elif not re.match(r'^(?=.*[a-z])(?=.*\d).{8,}$', password):
+            flash('Password must be at least 8 characters long and contain at least one number and one lowercase letter!')     
+        elif not username or not password or not email:
             flash('Please fill out the form!')
-       elif not phone_number.isdigit():  
+        elif not phone_number.isdigit():  
             flash('Phone number must contain only digits!')    
-       else:
-            # Account doesnt exists and the form data is valid, now insert new account into users table
-            cursor.execute("INSERT INTO users (name,lastname, username, password, email, phone_number) VALUES (%s,%s,%s,%s,%s,%s)", (name, lastname, username, _hashed_password, email, phone_number))
-            conn.commit()
+        else:
+            # Create a new user instance
+            new_user = Users(name=name, lastname=lastname, username=username, password=hashed_password, email=email, phone_number=phone_number)
+            # Add the new user to the database
+            db.session.add(new_user)
+            # Commit changes to the database
+            db.session.commit()
             flash('You have successfully registered!')
-    elif request.method=='POST':
-            flash('Please fill out the form!')
-    return render_template('signup.html')   
+
+    return render_template('signup.html') 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -275,31 +267,30 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
-        cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cursor.execute("SELECT * FROM manager WHERE username = %s", (username,))
-        manager = cursor.fetchone()
-        cursor.close()
-        
-        if manager and check_password_hash(manager['password'], password):
-            # Authentication successful, set session variables for manager
-            session['loggedin'] = True
-            session['manager_id'] = manager['id']
-            session['manager_name'] = manager['name']
-            flash('Manager login successful!', 'success')
-            return redirect(url_for('manager'))  # Redirect to manager profile route
+        # Attempt to authenticate as a manager
+        manager = Manager.query.filter_by(username=username).first()
+        if manager:
+            if check_password_hash(manager.password, password):
+                # Password is correct, proceed with login
+                session['loggedin'] = True
+                session['manager_id'] = manager.id
+                session['manager_name'] = manager.name
+                flash('Login successful!')
+                return redirect(url_for('manager'))
+            else:
+                flash('Incorrect password', 'danger')
+        else:
+            flash('Manager does not exist', 'danger')
 
-        cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-        user = cursor.fetchone()
-        cursor.close()
-
-        if user and check_password_hash(user['password'], password):
+        # Attempt to authenticate as a user
+        user = Users.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
             # Authentication successful, set session variables for user
             session['loggedin'] = True
-            session['user_id'] = user['id']
-            session['user_name'] = user['name']
+            session['user_id'] = user.id
+            session['user_name'] = user.name
             flash('User login successful!', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile'))  # Redirect to user profile route
         
         # If authentication fails for both manager and user
         flash('Incorrect username or password', 'danger')
@@ -314,38 +305,38 @@ def login():
 
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
+    if 'login' in session:
+        return redirect('/')
+    
     if request.method == 'POST':
-        # Retrieve username from session or form data
-        if 'username' in session:
-            username = session['username']
-        else:
-            username = request.form.get('username')
+        email = request.form['email']
+        token = str(uuid.uuid4())
+        
+        # Check if the email exists in the Manager table
+        manager_account = Manager.query.filter_by(email=email).first()
+        if manager_account:
+            # Update password for manager
+            new_password = request.form['new_password']
+            manager_account.password = generate_password_hash(new_password)
+            manager_account.token = token
+            db.session.commit()
+            flash("Password updated successfully", 'success')
+            return redirect(url_for('login'))
+        
+        # Check if the email exists in the User table
+        user_account = Users.query.filter_by(email=email).first()
+        if user_account:
+            # Update password for user
+            new_password = request.form['new_password']
+            user_account.password = generate_password_hash(new_password)
+            user_account.token = token
+            db.session.commit()
+            flash("Password updated successfully", 'success')
+            return redirect(url_for('login'))
+        
+        flash("Email does not match", 'danger')
 
-        # Process the password change request
-        new_password = request.form.get('new_password')
-        confirm_password = request.form.get('confirm_password')
-
-        if new_password != confirm_password:
-            flash('Passwords do not match.')
-            return redirect(url_for('change_password'))
-
-        # Update the password in the database for the specified user
-        cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        hashed_password = generate_password_hash(new_password)
-        cursor.execute("UPDATE users SET password=%s WHERE username=%s", (hashed_password, username))
-        conn.commit()
-
-        # Clear session to invalidate existing login
-        session.clear()
-
-        flash('Your password has been changed successfully. Please log in again.')
-        return redirect(url_for('login'))  # Redirect to login page after changing password
-    else:
-        # Render the change password form
-        return render_template('change_password.html')
-
-
-
+    return render_template('change_password.html')
 
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -354,58 +345,70 @@ def forgot_password():
         return redirect('/')
     if request.method == 'POST':
         email = request.form['email']
-        #username = request.form['username']  
         token = str(uuid.uuid4())
-        cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        # Check if the username exists in the database
-        result = cursor.execute('SELECT * FROM users WHERE  email=%s', [email])
-        account = cursor.fetchone()
-        if account:
-            msg=Message(subject="Forgot password request", sender="mashrapzere44@gmail.com", recipients=[email])
-            msg.body = render_template('sent.html', token=token, account=account)
+        
+        # Check if the email exists in the Manager table
+        manager_account = Manager.query.filter_by(email=email).first()
+        if manager_account:
+            msg = Message(subject="Forgot password request", sender="mashrapzere44@gmail.com", recipients=[email])
+            msg.body = render_template('sent.html', token=token, account=manager_account)
             mail.send(msg)
-            cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            cursor.execute("UPDATE users SET token=%s WHERE email=%s", [token,email])
-            conn.commit()
-            cursor.close()
+            manager_account.token = token
+            db.session.commit()
             flash("Email already sent to your email", 'success')
             return redirect(url_for('forgot_password'))
-        else:
-            flash("Email do not match", 'danger')
-            
-        #if account:
-            # Redirect to change_password route only if the email and username combination is correct
-            #return redirect(url_for('change_password'))
-        #else:
-            #flash('User with this username and email combination does not exist.')
+        
+        # Check if the email exists in the User table
+        user_account = Users.query.filter_by(email=email).first()
+        if user_account:
+            msg = Message(subject="Forgot password request", sender="mashrapzere44@gmail.com", recipients=[email])
+            msg.body = render_template('sent.html', token=token, account=user_account)
+            mail.send(msg)
+            user_account.token = token
+            db.session.commit()
+            flash("Email already sent to your email", 'success')
+            return redirect(url_for('forgot_password'))
+        
+        flash("Email does not match", 'danger')
 
     return render_template('forgot_password.html')
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if 'login' in session:
         return redirect('/')
+    
     if request.method == 'POST':
         password = request.form['password']
         confirm_password = request.form['confirm_password']
-        #username = request.form['username']  
-        token1 = str(uuid.uuid4())
-        if password!=confirm_password:
-           flash("Passwords do not match", 'danger')
-           return redirect(url_for('reset_password'))
-        password=generate_password_hash(confirm_password)
-        cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        result = cursor.execute('SELECT * FROM users WHERE  token=%s', [token])
-        account = cursor.fetchone()
-        if account:
-            cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            cursor.execute("UPDATE users SET token=%s, password=%s WHERE token=%s", [token1,password,token])
-            conn.commit()
-            cursor.close()
-            flash("Your password successfully updated", 'success')
+        new_token = str(uuid.uuid4())
+        
+        if password != confirm_password:
+            flash("Passwords do not match", 'danger')
+            return redirect(url_for('reset_password', token=token))
+        
+        hashed_password = generate_password_hash(confirm_password)
+        
+        # Check if the token exists in the Manager table
+        manager_account = Manager.query.filter_by(token=token).first()
+        if manager_account:
+            manager_account.token = new_token
+            manager_account.password = hashed_password
+            db.session.commit()
+            flash("Your password has been successfully updated", 'success')
             return redirect(url_for('login'))
-        else:
-            flash("Your token is invalid", 'danger')
+        
+        # Check if the token exists in the User table
+        user_account = Users.query.filter_by(token=token).first()
+        if user_account:
+            user_account.token = new_token
+            user_account.password = hashed_password
+            db.session.commit()
+            flash("Your password has been successfully updated", 'success')
+            return redirect(url_for('login'))
+        
+        flash("Invalid token", 'danger')
 
     return render_template('reset_password.html')
 
