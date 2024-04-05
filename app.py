@@ -55,15 +55,15 @@ flow = Flow.from_client_secrets_file(
     redirect_uri="http://127.0.0.1:5000/google-login"
 )
 
-DB_HOST='ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app'
-DB_NAME='koyebdb'
-DB_USER='koyeb-adm'
-DB_PASS='eI8CgU4ODGrn'
+DB_HOST='localhost'
+DB_NAME='sampledb'
+DB_USER='postgres'
+DB_PASS='13579'
 
 conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://koyeb-adm:eI8CgU4ODGrn@ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app/koyebdb
 #DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 class Manager(db.Model):
