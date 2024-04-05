@@ -63,7 +63,7 @@ DB_PASS='13579'
 conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://koyeb-adm:eI8CgU4ODGrn@ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app/koyebdb
 DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",DB_URI)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 class Manager(db.Model):
@@ -343,10 +343,6 @@ def change_password():
     else:
         # Render the change password form
         return render_template('change_password.html')
-
-
-
-
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
