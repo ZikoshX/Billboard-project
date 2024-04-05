@@ -63,7 +63,7 @@ connection_string = URL.create(
     password='eI8CgU4ODGrn',
     host='ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app',
     database='jtfd',
-    options={'sslmode': 'require'}
+    query={'sslmode': 'require'} 
 )
 
 engine = create_engine(connection_string)
