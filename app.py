@@ -69,7 +69,7 @@ engine = create_engine(connection_string)
 #conn=psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 #postgres://koyeb-adm:eI8CgU4ODGrn@ep-damp-term-a29esurz.eu-central-1.pg.koyeb.app/koyebdb
 #DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
-app.config['SQLALCHEMY_DATABASE_URI'] = engine
+app.config['SQLALCHEMY_DATABASE_URI'] = connection_string
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 class Manager(db.Model):
